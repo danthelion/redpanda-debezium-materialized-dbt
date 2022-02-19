@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: fct_inventory
+    description: inv cust staging table
+    columns:
+      - name: id
+        description: "auto increment primary key"
+      - name: first_name
+        description: "first name"
+      - name: last_name
+        description: "last name"
+      - name: email
+        description: "email"

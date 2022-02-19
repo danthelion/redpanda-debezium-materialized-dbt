@@ -1,0 +1,92 @@
+name: materialize_dbt_utils_dbt_utils_integration_tests
+version: '1.0'
+config-version: 2
+
+profile: integration_tests
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: [materialize_dbt_utils, dbt_utils_integration_tests, dbt_utils]
+
+seeds:
+  dbt_utils_integration_tests:
+    schema_tests:
+      data_test_mutually_exclusive_ranges_no_gaps:
+        +enabled: false
+      data_test_mutually_exclusive_ranges_with_gaps:
+        +enabled: false
+      data_test_mutually_exclusive_ranges_with_gaps_zero_length:
+        +enabled: false
+      data_test_sequential_timestamps:
+        +enabled: false
+      data_test_sequential_values:
+        +enabled: false
+
+models:
+  # More info about disabled tests: https://github.com/MaterializeInc/materialize-dbt-utils/issues/7
+  dbt_utils_integration_tests:
+    cross_db_utils:
+      # Materialize doesn't support current_timestamp() in static queries
+      test_current_timestamp:
+        +enabled: false
+      test_current_timestamp_in_utc:
+        +enabled: false
+      # TODO @ jldlaughlin: triage assertion failure
+      test_dateadd:
+        +enabled: false
+      # TODO @ jldlaughlin: triage execution error
+      test_datediff:
+        +enabled: false
+      # TODO @ jldlaughlin: triage assertion failure
+      test_date_trunc:
+        +enabled: false
+      # Materialize does not currently support md5
+      # See: https://github.com/MaterializeInc/materialize/issues/4461
+      test_hash:
+        +enabled: false
+      # Todo @ jldlaughlin: triage execution error
+      test_last_day:
+        +enabled: false
+      # Requires position()
+      test_position:
+        +enabled: false
+      # Requires right()
+      test_right:
+        +enabled: false
+      # Not relevant for Materialize!
+      test_width_bucket:
+        +enabled: false
+    datetime:
+      # Requires generate_series() (see below)
+      test_date_spine:
+        +enabled: false
+    schema_tests:
+      # Materialize doesn't support creating views that contain current_timestamp
+      test_recency:
+        +enabled: false
+    sql:
+      # Requires pow()
+      test_generate_series:
+        +enabled: false
+      # TODO @ jldlaughlin: triage assertion failure
+      test_pivot:
+        +enabled: false
+      # Materialize does not currently support md5
+      # See: https://github.com/MaterializeInc/materialize/issues/4461
+      test_surrogate_key:
+        +enabled: false
+      test_get_relations_by_pattern:
+        +enabled: false
+      test_get_relations_by_prefix_and_union:
+        +enabled: false
+      test_get_column_values:
+        +enabled: false
+    web:
+      # TODO for jldlaughlin: triage parse failure
+      test_url_path:
+        +enabled: false
+    geo:
+      test_haversine_distance_km:
+        +enabled: false
+      test_haversine_distance_mi:
+        +enabled: false

@@ -1,0 +1,18 @@
+## Generally this profiles.yml file never be included in your dbt project but rather 
+##locally in a .dbt folder locally. For the purpose of this hack_day, we have included it
+## for ease
+
+debezium_redpanda_dbt_materialize:
+  outputs:
+
+    dev:
+      type: materialize
+      threads: 1
+      host: materialized
+      port: 6875
+      user: materialize
+      pass: password
+      dbname: materialize
+      schema: public
+
+  target: dev
